@@ -1,13 +1,13 @@
-# Petrol
+# Bip
 
-Petrol is a library to help you build ClojureScript webapps. It
+Bip is a library to help you build ClojureScript webapps. It
 concentrates on being Functional, and if that leads to being Reactive,
 well, that's just fine too.
 
-[![Clojars Project](http://clojars.org/petrol/latest-version.svg)](http://clojars.org/petrol)
+[![Clojars Project](http://clojars.org/bip/latest-version.svg)](http://clojars.org/bip)
 
 [![Build
-Status](https://travis-ci.org/krisajenkins/petrol.svg?branch=0.1.0)](https://travis-ci.org/krisajenkins/petrol)
+Status](https://travis-ci.org/krisajenkins/bip.svg?branch=0.1.0)](https://travis-ci.org/krisajenkins/bip)
 
 ## About
 
