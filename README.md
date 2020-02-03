@@ -4,14 +4,13 @@ Bip is a library to help you build ClojureScript webapps. It
 concentrates on being Functional, and if that leads to being Reactive,
 well, that's just fine too.
 
-[![Clojars Project](http://clojars.org/bip/latest-version.svg)](http://clojars.org/bip)
+<!-- [![Clojars Project](http://clojars.org/bip/latest-version.svg)](http://clojars.org/bip) -->
 
-[![Build
-Status](https://travis-ci.org/krisajenkins/bip.svg?branch=0.1.0)](https://travis-ci.org/krisajenkins/bip)
+<!-- [![Build Status](https://travis-ci.org/tggreene/bip.svg?branch=0.1.0)](https://travis-ci.org/tggreene/bip) -->
 
 ## About
 
-Documentation is on its way. In the meantime, my [talk at ClojureExchange 2015](https://skillsmatter.com/skillscasts/7227-clojurescript-architecting-for-scale)
+Documentation is on its way. In the meantime, Kris's [talk at ClojureExchange 2015](https://skillsmatter.com/skillscasts/7227-clojurescript-architecting-for-scale)
 will tell you all you need to know.
 
 ## Running the examples

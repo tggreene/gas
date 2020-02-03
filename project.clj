@@ -3,22 +3,22 @@
   :url "https://github.com/tggreene/bip"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.170"]
-                 [org.clojure/core.async "0.2.374"]
-                 [bidi "1.24.0"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
+                 [org.clojure/clojurescript "1.10.520"]
+                 [org.clojure/core.async "0.4.500"]
+                 [bidi "2.1.6"]
                  [com.cemerick/url "0.1.1"]
-                 [kibu/pushy "0.3.6"]]
+                 [kibu/pushy "0.3.8"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]
-            [lein-figwheel "0.5.0-1"]]
+            [lein-figwheel "0.5.9-SNAPSHOT"]]
 
   :cljsbuild {:builds {:bip {:source-paths ["src"]
-                                :compiler {:main bip.core
-                                           :asset-path "js/compiled/out"
-                                           :output-to "resources/public/js/compiled/bip.js"
-                                           :output-dir "resources/public/js/compiled/out"
-                                           :optimizations :none}}}}
+                             :compiler {:main bip.core
+                                        :asset-path "js/compiled/out"
+                                        :output-to "resources/public/js/compiled/bip.js"
+                                        :output-dir "resources/public/js/compiled/out"
+                                        :optimizations :none}}}}
 
   :figwheel {:repl true
-             :nrepl-port 7888})
+             :nrepl-port 0})
