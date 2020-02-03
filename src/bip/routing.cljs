@@ -1,4 +1,4 @@
-(ns petrol.routing
+(ns bip.routing
   (:require [cljs.core.async :as async :refer [chan put!]]
             [pushy.core :as pushy]
             [bidi.bidi :as bidi]
