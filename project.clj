@@ -1,6 +1,6 @@
-(defproject bip "0.1.0"
+(defproject gas "0.1.0"
   :description "A simple event-handling framework for ClojureScript projects."
-  :url "https://github.com/tggreene/bip"
+  :url "https://github.com/tggreene/gas"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.10.1"]
@@ -13,10 +13,10 @@
   :plugins [[lein-cljsbuild "1.1.1"]
             [lein-figwheel "0.5.9-SNAPSHOT"]]
 
-  :cljsbuild {:builds {:bip {:source-paths ["src"]
-                             :compiler {:main bip.core
+  :cljsbuild {:builds {:gas {:source-paths ["src"]
+                             :compiler {:main gas.core
                                         :asset-path "js/compiled/out"
-                                        :output-to "resources/public/js/compiled/bip.js"
+                                        :output-to "resources/public/js/compiled/gas.js"
                                         :output-dir "resources/public/js/compiled/out"
                                         :optimizations :none}}}}
 

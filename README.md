@@ -1,12 +1,12 @@
-# Bip
+# Gas
 
-Bip is a library to help you build ClojureScript webapps. It
+Gas is a library to help you build ClojureScript webapps. It
 concentrates on being Functional, and if that leads to being Reactive,
 well, that's just fine too.
 
-<!-- [![Clojars Project](http://clojars.org/bip/latest-version.svg)](http://clojars.org/bip) -->
+<!-- [![Clojars Project](http://clojars.org/gas/latest-version.svg)](http://clojars.org/gas) -->
 
-<!-- [![Build Status](https://travis-ci.org/tggreene/bip.svg?branch=0.1.0)](https://travis-ci.org/tggreene/bip) -->
+<!-- [![Build Status](https://travis-ci.org/tggreene/gas.svg?branch=0.1.0)](https://travis-ci.org/tggreene/gas) -->
 
 ## About
 
