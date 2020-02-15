@@ -1,6 +1,6 @@
 (ns examples.todos.core
-  (:require [examples.todos.gas :as gas]
-            [examples.todos.routing :as gas-routing]
+  (:require [gas.core :as gas]
+            [gas.routing :as gas-routing]
             [reagent.core :as reagent]
             [examples.todos.routes :refer [frontend-routes]]
             [examples.todos.view :as view]

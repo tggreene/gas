@@ -4,23 +4,19 @@
   (:require-macros [cljs.core.async.macros :refer [go-loop]]))
 
 (defn wrap
-  "Apply a function to every element that comes out of a channel.
-
-  (This is fmap for channels)."
+  "Apply a function to every element that comes out of a channel"
   [f in]
   (pipe in (chan 1 (map f))))
 
 (defn forward
-  "Apply a function to every element that goes into a channel.
-
-  (This is contramap for channels)."
+  "Apply a function to every element that goes into a channel"
   [f from]
   (let [to (chan)]
     (go-loop []
-      (>! from (f (<! to))))
+      (when-let [message (<! to)]
+        (>! from (f message))
+        (recur)))
     to))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defprotocol Message
   (process-message [message app]
@@ -42,8 +38,6 @@
     (->> (get-in app path)
          (watch-channels submessage)
          (map #(wrap wrapper %)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn- get-event-value
   "Given a DOM event, return the value it yields. This abstracts over
@@ -80,36 +74,57 @@
          (put! channel))
     (.stopPropagation dom-event)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(def ^:private !channels
-  (atom #{}))
-
 (defn start-message-loop!
-  ([!app render-fn]
-   (start-message-loop! !app render-fn #{}))
+  [intial-channels data-atom]
+  (let [channels (atom intial-channels)]
+    (async/go-loop []
+      (when-let [cs (seq @channels)]
+        (let [[message channel] (alts! cs)]
 
-  ([!app render-fn initial-channels]
-   (reset! !channels initial-channels)
+          (try
+            (when (nil? message)
+              (swap! channels disj channel))
 
-   (let [ui-channel (async/chan)]
-     (swap! !channels conj ui-channel)
+            (when (satisfies? Message message)
+              (swap! data-atom #(process-message message %)))
 
-     (add-watch !app :render
-                (fn [_ _ _ app]
-                  (render-fn ui-channel app)))
+            (when (satisfies? EventSource message)
+              (swap! channels clojure.set/union (watch-channels message @data-atom)))
+            (catch js/Error e
+              (js/console.log "Gas Error! Somewhere a message implementation is broken!")
+              (js/console.log message)
+              (js/console.log e))))
+        (recur)))))
 
-     (swap! !app identity)
+(declare ->Submessage)
+(defrecord Submessage [path message]
+  Message
+  (process-message [_ state]
+    (process-submessage message state path))
+  EventSource
+  (watch-channels [_ state]
+    (watch-subchannels message state path #(->Submessage path %))))
 
-     (go-loop []
-       (when-let [cs (seq @!channels)]
-         (let [[message channel] (alts! cs)]
-           (when (nil? message)
-             (swap! !channels disj channel))
+(defn submessage
+  "Wrap a message as a submessage with a given path within the application
+  state"
+  [path message]
+  (->Submessage path message))
 
-           (when (satisfies? Message message)
-             (swap! !app #(process-message message %)))
+(defn submessenger
+  "Create a function which wraps messages as submessages to a particular path
+  within the application state"
+  [path]
+  (fn [message]
+    (submessage path message)))
 
-           (when (satisfies? EventSource message)
-             (swap! !channels set/union (watch-channels message @!app))))
-         (recur))))))
+(defn forward-to
+  "Wrap incoming messages in a submessage"
+  [path channel]
+  (forward (submessenger path) channel))
+
+(defn subcomponent
+  "Wrap a component using gas.core/forward-to such that any messages passed via
+  a component are wrapped to a particular path within the application state"
+  [component ui-channel path & args]
+  (into [component (forward-to path ui-channel)] args))
