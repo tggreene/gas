@@ -1,4 +1,4 @@
-(defproject gas "0.1.0"
+(defproject tggreene/gas "0.1.0"
   :description "A simple event-handling framework for ClojureScript projects."
   :url "https://github.com/tggreene/gas"
   :license {:name "Eclipse Public License"

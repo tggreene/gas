@@ -8,7 +8,7 @@
                  [bidi "2.1.6"]
                  [com.cemerick/url "0.1.1"]
                  [kibu/pushy "0.3.8"]
-                 [gas "0.1.0"]
+                 [tggreene/gas "0.1.0"]
                  [reagent "0.9.0-rc2"]
                  [cljs-http "0.1.46"]
                  [cider/piggieback "0.4.2"]
